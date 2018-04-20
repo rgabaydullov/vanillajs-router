@@ -19,10 +19,11 @@
         _before: new Function(),
         _after: new Function(),
         start: function(onStart) {
-            this.navigate(this.getQuery());
             try { onStart() } catch(e) {}
+
+            this.navigate(this.getQuery());
         },
-        navigate: function(mode, base, path, query) {
+        navigate: function(mode, base, path, query, callback) {
             var href = [
                 this._filter(mode, base, path),
                 this._setGetQuery(query)
@@ -36,6 +37,8 @@
                     window.location.href = href;
                     break;
             }
+
+            try { callback() } catch(e) {}
         },
         bind: function(routes, route, middleware) {
             route = this._trimSlashes(route);
@@ -83,7 +86,7 @@
                     }
 
                     _this._listen.call(_this, mode, base, callback)
-                }, 50);
+                }, 100);
         },
         _getBase: function(base) {
             base = this._trimSlashes(base);
@@ -106,7 +109,7 @@
                     break;
                 case _defaultOps.modeHash:
                     var match = window.location.href.match(/#(.*)$/);
-                    location = this._clear(match ? match[1] : '');
+                    location = this._clear(!!match ? match[1] : '');
                     break;
             }
             return !!location ? location : '/'
@@ -134,13 +137,11 @@
                 _param = route.replace(_reMatchQuery, '').match(new RegExp(pattern.replace(_reMatchParam, REGEXP_ROUTES.PARAM_STRICT), 'i')),
                 _query = route.match(_reMatchQuery);
 
-            var _routeData = {
+            return {
                 dir: !!_dir ? this._trimSlashes(_dir) : '/',
                 param: !!_param && !!_param[1] ? _param[1] : '',
                 query: !!_query ? this._mapQuery(_query[1]) : {}
-            };
-
-            return _routeData
+            }
         },
         _mapQuery: function(query) {
             var result = {},
