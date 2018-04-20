@@ -1,0 +1,16 @@
+{
+  "name": "vanillajs-router",
+  "version": "1.7.0",
+  "description": "A simple-to-use VanillaJS SPA cross-browser router",
+  "keywords": [
+    "vanillajs",
+    "spa",
+    "router",
+    "spa router"
+  ],
+  "bugs": "https://github.com/rshtg/vanillajs-router/issues",
+  "main": "index.js",
+  "repository": "https://github.com/rshtg/vanillajs-router.git",
+  "author": "RGabaydullov <rsht123g@gmail.com>",
+  "license": "GNU"
+}
