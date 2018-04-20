@@ -1,6 +1,6 @@
 {
   "name": "vanillajs-router",
-  "version": "1.7.0",
+  "version": "1.1.0",
   "description": "A simple-to-use VanillaJS SPA cross-browser router",
   "keywords": [
     "vanillajs",
